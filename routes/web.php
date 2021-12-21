@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,8 @@ Route::get('/contact', function () {
 Route::get('/middleware', function () {
     echo 'Hello from middleware';
 })->middleware('checkAge');
+
+Route::get('/category/all', [CategoryController::class, 'showAllCategory'])->name('allCategory');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     $users = User::all();
