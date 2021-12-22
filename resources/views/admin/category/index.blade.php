@@ -8,18 +8,59 @@
     <div class="py-12">
         <div class="container">
             <div class="row">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">Number</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Created At</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
+                <div class="col-md-8">
+                    <div class="card">
+                        @if(session('status'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>{{ session('status') }}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        @endif
+                        <div class="card-header">
+                            All Category
+                        </div>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">No</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Created At</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            Add Category
+                        </div>
+                        <div class="card-body">
+                            <form action="{{ route('store.category') }}" method="POST">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="category">Category Name</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="category"
+                                        aria-describedby="emailHelp"
+                                        name="category_name"
+                                    >
+                                    @error('category_name')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <button type="submit" class="btn btn-primary">Add Category</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
