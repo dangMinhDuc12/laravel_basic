@@ -25,14 +25,23 @@
                             <thead>
                             <tr>
                                 <th scope="col">No</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Email</th>
+                                <th scope="col">Category Name</th>
+                                <th scope="col">User</th>
                                 <th scope="col">Created At</th>
                             </tr>
                             </thead>
                             <tbody>
+                            @foreach($categories as $category)
+                                <tr>
+                                    <th scope="row">{{ $categories->firstItem() + $loop->index }}</th>
+                                    <td>{{ $category->category_name }}</td>
+                                    <td>{{ $category->user->name }}</td>
+                                    <td>{{ $category->created_at->diffForHumans() }}</td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
+                        {{ $categories->links() }}
                     </div>
                 </div>
                 <div class="col-md-4">

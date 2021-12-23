@@ -11,7 +11,8 @@ class CategoryController extends Controller
 {
     public function showAllCategory()
     {
-        return view('admin.category.index');
+        $categories = Category::latest()->paginate(2);
+        return view('admin.category.index', compact('categories'));
     }
 
     public function addCategory(Request $request)
