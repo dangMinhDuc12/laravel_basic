@@ -32,8 +32,11 @@ Route::get('/middleware', function () {
     echo 'Hello from middleware';
 })->middleware('checkAge');
 
+//Category Routes
 Route::get('/category/all', [CategoryController::class, 'showAllCategory'])->name('all.category');
 Route::post('/category/add', [CategoryController::class, 'addCategory'])->name('store.category');
+Route::get('category/edit/{id}', [CategoryController::class, 'editCategory']);
+Route::put('/category/update/{id}', [CategoryController::class, 'updateCategory']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     $users = User::all();

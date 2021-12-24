@@ -37,6 +37,10 @@
                                     <td>{{ $category->category_name }}</td>
                                     <td>{{ $category->user->name }}</td>
                                     <td>{{ $category->created_at->diffForHumans() }}</td>
+                                    <td>
+                                        <a href={{ url("/category/edit/{$category->id}") }} class="btn btn-info">Edit</a>
+                                        <a href="" class="btn btn-danger">Delete</a>
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>
