@@ -28,6 +28,7 @@
                                 <th scope="col">Category Name</th>
                                 <th scope="col">User</th>
                                 <th scope="col">Created At</th>
+                                <th scope="col">Actions</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -38,14 +39,22 @@
                                     <td>{{ $category->user->name }}</td>
                                     <td>{{ $category->created_at->diffForHumans() }}</td>
                                     <td>
-                                        <a href={{ url("/category/edit/{$category->id}") }} class="btn btn-info">Edit</a>
-                                        <a href="" class="btn btn-danger">Delete</a>
+                                        <a
+                                            href={{ url("/category/edit/{$category->id}") }}
+                                            class="btn btn-info">
+                                            Edit
+                                        </a>
+                                        <a
+                                            href={{ url("/category/soft-delete/{$category->id}") }}
+                                            class="btn btn-danger">
+                                            Delete
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
-                        {{ $categories->links() }}
+                        {{ $categories->withQueryString()->links() }}
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -72,6 +81,55 @@
                                 <button type="submit" class="btn btn-primary">Add Category</button>
                             </form>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{{--    Trash Category--}}
+    <div class="py-12">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            Trash Category
+                        </div>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">No</th>
+                                <th scope="col">Category Name</th>
+                                <th scope="col">User</th>
+                                <th scope="col">Created At</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($trashCategories as $category)
+                                <tr>
+                                    <th scope="row">{{ $trashCategories->firstItem() + $loop->index }}</th>
+                                    <td>{{ $category->category_name }}</td>
+                                    <td>{{ $category->user->name }}</td>
+                                    <td>{{ $category->created_at->diffForHumans() }}</td>
+                                    <td>
+                                        <a
+                                            href={{ url("/category/restore/{$category->id}") }}
+                                            class="btn btn-info">
+                                            Restore
+                                        </a>
+                                        <a
+                                            href={{ url("/category/force-delete/{$category->id}") }}
+                                            class="btn btn-danger">
+                                            Force Delete
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                        {{ $trashCategories->withQueryString()->links() }}
                     </div>
                 </div>
             </div>

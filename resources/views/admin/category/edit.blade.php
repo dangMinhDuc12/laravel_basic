@@ -25,7 +25,7 @@
                                         id="category"
                                         aria-describedby="emailHelp"
                                         name="category_name"
-                                        value={{ $category->category_name }}
+                                        value='{{ $category->category_name }}'
                                     >
                                     @error('category_name')
                                     <span class="text-danger">{{ $message }}</span>

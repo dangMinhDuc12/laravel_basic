@@ -12,14 +12,15 @@ class CategoryController extends Controller
 {
     public function showAllCategory()
     {
-        $categories = Category::latest()->paginate(2);
+        $categories = Category::latest()->paginate(2, ['*'], 'categories');
+        $trashCategories = Category::onlyTrashed()->latest()->paginate(2, ['*'], 'trashCategories');
 
         //Query Builder
 //        $categories = DB::table('categories')
 //                        ->join('users', 'categories.user_id', '=', 'users.id')
 //                        ->select('categories.*', 'users.name')
 //                        ->latest()->paginate(2);
-        return view('admin.category.index', compact('categories'));
+        return view('admin.category.index', compact('categories', 'trashCategories'));
     }
 
     public function addCategory(Request $request)
@@ -52,5 +53,23 @@ class CategoryController extends Controller
         ]);
 
         return redirect('/category/all')->with('status', 'Category Updated Successfully');
+    }
+
+    public function softDeleteCategory($id)
+    {
+        Category::find($id)->delete();
+        return redirect('/category/all')->with('status', 'Category Soft Deleted Successfully');
+    }
+
+    public function restoreCategory($id)
+    {
+        Category::onlyTrashed()->find($id)->restore();
+        return redirect('/category/all')->with('status', 'Category Restored Successfully');
+    }
+
+    public function forceDeleteCategory($id)
+    {
+        Category::onlyTrashed()->find($id)->forceDelete();
+        return redirect('/category/all')->with('status', 'Category Force Deleted Successfully');
     }
 }

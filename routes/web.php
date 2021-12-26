@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +38,13 @@ Route::get('/category/all', [CategoryController::class, 'showAllCategory'])->nam
 Route::post('/category/add', [CategoryController::class, 'addCategory'])->name('store.category');
 Route::get('category/edit/{id}', [CategoryController::class, 'editCategory']);
 Route::put('/category/update/{id}', [CategoryController::class, 'updateCategory']);
+Route::get('/category/soft-delete/{id}', [CategoryController::class, 'softDeleteCategory']);
+Route::get('/category/restore/{id}', [CategoryController::class, 'restoreCategory']);
+Route::get('/category/force-delete/{id}', [CategoryController::class, 'forceDeleteCategory']);
+
+//Brand Routes
+Route::get('/brand/all', [BrandController::class, 'showAllBrand'])->name('all.brand');
+Route::post('/brand/add', [BrandController::class, 'addBrand'])->name('store.brand');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     $users = User::all();
