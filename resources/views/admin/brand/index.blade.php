@@ -36,10 +36,10 @@
                                 <tr>
                                     <th scope="row">{{ $brands->firstItem() + $loop->index }}</th>
                                     <td>{{ $brand->brand_name }}</td>
-                                    <td>{{ $brand->brand_image }}</td>
+                                    <td><img src={{ asset($brand->brand_image) }} style="width: 70px; height: 40px "></td>
                                     <td>{{ $brand->created_at->diffForHumans() }}</td>
                                     <td>
-                                        <a href="" class="btn btn-info">Edit</a>
+                                        <a href={{ url("/brand/edit/{$brand->id}") }} class="btn btn-info">Edit</a>
                                         <a href="" class="btn btn-danger">Delete</a>
                                     </td>
                                 </tr>
