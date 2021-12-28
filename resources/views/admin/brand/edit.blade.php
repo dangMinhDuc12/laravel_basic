@@ -14,9 +14,11 @@
                             Update Brand
                         </div>
                         <div class="card-body">
-                            <form action={{ url("/category/update/{$brand->id}") }} method="POST">
+                            <form
+                                action={{ url("/brand/update/{$brand->id}") }}
+                                method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
-                                @method('PUT')
                                 <div class="form-group">
                                     <label for="brand_name">Brand Name</label>
                                     <input
@@ -43,6 +45,9 @@
                                     @error('brand_image')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
+                                </div>
+                                <div class="form-group">
+                                    <img src={{ asset($brand->brand_image) }} style="width: 400px; height: 200px"" ">
                                 </div>
                                 <button type="submit" class="btn btn-primary">Update Brand</button>
                             </form>

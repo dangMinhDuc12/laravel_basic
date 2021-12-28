@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class BrandController extends Controller
 {
@@ -21,8 +23,7 @@ class BrandController extends Controller
         ], [
             'brand_name.required' => 'Please input brand name'
         ]);
-
-
+        
         $brand_image = $request->file('brand_image')->store('images');
         Brand::create([
            'brand_name' => $request->brand_name,
@@ -37,5 +38,27 @@ class BrandController extends Controller
     {
         $brand = Brand::find($id);
         return view('admin.brand.edit', compact('brand'));
+    }
+
+    public function updateBrand(Request $request, $id)
+    {
+        $brand = Brand::find($id);
+        $brand->brand_name = $request->brand_name;
+
+        if($request->brand_image) {
+            $old_image = $brand->brand_image;
+            Storage::delete($old_image);
+            $brand->brand_image = $request->file('brand_image')->store('images');
+        }
+        $brand->save();
+        return redirect('/brand/all')->with('status', 'Brand updated successfully');
+    }
+
+    public function deleteBrand($id)
+    {
+        $brand = Brand::find($id);
+        Storage::delete($brand->brand_image);
+        $brand->delete();
+        return redirect('/brand/all')->with('status', 'Brand Deleted Successfully');
     }
 }
