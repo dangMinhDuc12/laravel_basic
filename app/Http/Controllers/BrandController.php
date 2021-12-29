@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
+use App\Models\Multipicture;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class BrandController extends Controller
@@ -23,7 +23,7 @@ class BrandController extends Controller
         ], [
             'brand_name.required' => 'Please input brand name'
         ]);
-        
+
         $brand_image = $request->file('brand_image')->store('images');
         Brand::create([
            'brand_name' => $request->brand_name,
@@ -60,5 +60,29 @@ class BrandController extends Controller
         Storage::delete($brand->brand_image);
         $brand->delete();
         return redirect('/brand/all')->with('status', 'Brand Deleted Successfully');
+    }
+
+    //Multipicture methods
+    public function showAllMultipicture()
+    {
+        $pictures = Multipicture::all();
+        return view('admin.multipicture.index', compact('pictures'));
+    }
+
+    public function addMultipicture(Request $request)
+    {
+        $request->validate([
+            'pictures' => 'required'
+        ], [
+            'pictures.required' => 'Please input files'
+        ]);
+        $pictures = $request->file('pictures');
+        foreach ($pictures as $picture) {
+            $path_picture = $picture->store('images');
+            Multipicture::create([
+                'image' => $path_picture
+            ]);
+        }
+        return redirect('/multipicture/all')->with('status', 'Pictures Inserted Successfully');
     }
 }
