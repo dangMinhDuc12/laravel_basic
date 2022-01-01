@@ -33,6 +33,11 @@ Route::get('/middleware', function () {
     echo 'Hello from middleware';
 })->middleware('checkAge');
 
+//Mail verify route
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
 //Category Routes
 Route::get('/category/all', [CategoryController::class, 'showAllCategory'])->name('all.category');
 Route::post('/category/add', [CategoryController::class, 'addCategory'])->name('store.category');
@@ -54,6 +59,5 @@ Route::get('/multipicture/all', [BrandController::class, 'showAllMultipicture'])
 Route::post('/multipicture/add', [BrandController::class, 'addMultipicture'])->name('store.multipicture');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    $users = User::all();
-    return view('dashboard', compact('users'));
+    return view('admin.index');
 })->name('dashboard');

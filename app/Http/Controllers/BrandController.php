@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Storage;
 
 class BrandController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     public function showAllBrand()
     {
         $brands = Brand::latest()->paginate(2);
