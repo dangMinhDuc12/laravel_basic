@@ -59,5 +59,6 @@ Route::get('/multipicture/all', [BrandController::class, 'showAllMultipicture'])
 Route::post('/multipicture/add', [BrandController::class, 'addMultipicture'])->name('store.multipicture');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('admin.index');
+    $users = User::all();
+    return view('dashboard', compact('users'));
 })->name('dashboard');
