@@ -20,5 +20,8 @@ use Illuminate\Support\Facades\Route;
 //});
 
 Route::get('/class', [StudentClassController::class, 'showAll']);
-Route::get('/class/edit/{id}', [StudentClassController::class, 'getOne']);
+Route::get('/class/{id}', [StudentClassController::class, 'getOne']);
 Route::post('/class/store', [StudentClassController::class, 'store']);
+Route::put('/class/update/{id}', [StudentClassController::class, 'update']);
+Route::delete('/class/delete/{id}', [StudentClassController::class, 'delete']);
+
