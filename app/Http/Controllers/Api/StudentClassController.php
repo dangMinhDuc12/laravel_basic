@@ -25,7 +25,7 @@ class StudentClassController extends Controller
             return response()->json([
                 'status' => 'fail',
                 'message' => $errors
-            ]);
+            ], 400);
         }
 
         $new_class = StudentClass::create([
@@ -59,7 +59,7 @@ class StudentClassController extends Controller
             return response()->json([
                 'status' => 'fail',
                 'message' => $errors
-            ]);
+            ], 400);
         }
 
         $class_update = StudentClass::find($id);

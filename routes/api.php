@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\StudentClassController;
+use App\Http\Controllers\SubjectController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,9 +20,17 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
+//Class API
 Route::get('/class', [StudentClassController::class, 'showAll']);
 Route::get('/class/{id}', [StudentClassController::class, 'getOne']);
 Route::post('/class/store', [StudentClassController::class, 'store']);
 Route::put('/class/update/{id}', [StudentClassController::class, 'update']);
 Route::delete('/class/delete/{id}', [StudentClassController::class, 'delete']);
 
+//Subject API
+
+Route::get('/subject', [SubjectController::class, 'showAll']);
+Route::get('/subject/{id}', [SubjectController::class, 'getOne']);
+Route::post('/subject/store', [SubjectController::class, 'store']);
+Route::put('/subject/update/{id}', [SubjectController::class, 'update']);
+Route::delete('/subject/delete/{id}', [SubjectController::class, 'delete']);
