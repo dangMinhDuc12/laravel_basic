@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\StudentClassController;
 use App\Http\Controllers\SubjectController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,3 +35,14 @@ Route::get('/subject/{id}', [SubjectController::class, 'getOne']);
 Route::post('/subject/store', [SubjectController::class, 'store']);
 Route::put('/subject/update/{id}', [SubjectController::class, 'update']);
 Route::delete('/subject/delete/{id}', [SubjectController::class, 'delete']);
+
+//JWT API
+Route::group([
+    'prefix' => 'auth'
+], function ($router) {
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('refresh', [AuthController::class, 'refresh']);
+    Route::post('me', [AuthController::class, 'me']);
+    Route::post('register', [AuthController::class, 'register']);
+});
